@@ -170,3 +170,29 @@ def city_monthly():
 
 if __name__ == "__main__":
     city_monthly()
+
+
+def energy():
+    """Solar farms and wind turbines (Global Renewables Watch 2024 Q2) and OSM solar/wind, as GeoJSON points for the map."""
+    import geopandas as gpd
+    import pandas as pd
+    E = DEV / "solar-wind-south-asia"
+    keep = ["Pakistan", "India", "Bangladesh", "Nepal", "Bhutan", "Sri Lanka", "Maldives", "Afghanistan", "Iran", "Myanmar",
+            "Tajikistan", "Kyrgyzstan", "China"]
+    out = D / "energy"; out.mkdir(parents=True, exist_ok=True)
+    s = gpd.read_file(E / "data/grw_solar.gpkg"); s = s[s.COUNTRY.isin(keep)]
+    if "China" in keep:   # China: only west of 105 E (the Third Pole side) to keep the file light
+        s = s[(s.COUNTRY != "China") | (s.geometry.centroid.x < 105)]
+    pts = s.copy(); pts["geometry"] = s.to_crs(3857).centroid.to_crs(4326)
+    pts["area_ha"] = (s["area"] / 1e4).round(1)
+    pts[["COUNTRY", "construction_year", "area_ha", "geometry"]].rename(columns={"COUNTRY": "country", "construction_year": "year"}).to_file(out / "solar_farms.geojson", driver="GeoJSON", COORDINATE_PRECISION=4)
+    w = gpd.read_file(E / "data/grw_wind.gpkg"); w = w[w.COUNTRY.isin(keep) & (w.geometry.x < 105)]
+    w[["construction_year", "geometry"]].rename(columns={"construction_year": "year"}).to_file(out / "wind_turbines.geojson", driver="GeoJSON", COORDINATE_PRECISION=4)
+    shutil.copy(E / "outputs/grw_country_year.csv", out / "grw_country_year.csv")
+    if (E / "outputs/osm_power_summary.csv").exists():
+        shutil.copy(E / "outputs/osm_power_summary.csv", out / "osm_power_summary.csv")
+    print("energy", len(pts), "solar sites", len(w), "turbines")
+
+
+if __name__ == "__main__":
+    energy()

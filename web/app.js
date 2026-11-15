@@ -64,6 +64,11 @@ function show() {
 }
 
 function select(kind, key) {
+  if (kind === "none") {
+    ["smog", "snow"].forEach((k) => { map.getLayer("ov-" + k) && map.removeLayer("ov-" + k); map.getSource("ov-" + k) && map.removeSource("ov-" + k); });
+    $("legend").style.display = "none"; $("timebar").style.visibility = "hidden"; return;
+  }
+  $("legend").style.display = "";
   active = { kind, key };
   if (kind === "smog") {
     const n = M.smog[key].months.length; const s = $("month");
@@ -104,7 +109,7 @@ map.on("load", async () => {
   M = await (await fetch("data/manifest.json")).json();
   CITIES = await (await fetch("data/cities.json")).json();
   $("built").textContent = `Last built ${M.built}.`;
-  $("air").innerHTML = Object.entries(M.smog).map(([k, L]) => `<li><label><input type="radio" name="layer" value="smog:${k}" ${k === "no2" ? "checked" : ""}> ${L.title}</label></li>`).join("");
+  $("air").innerHTML = `<li><label><input type="radio" name="layer" value="none:none"> No overlay</label></li>` + Object.entries(M.smog).map(([k, L]) => `<li><label><input type="radio" name="layer" value="smog:${k}" ${k === "no2" ? "checked" : ""}> ${L.title}</label></li>`).join("");
   $("snow").innerHTML = Object.entries(M.snow).map(([k, L]) => `<li><label><input type="radio" name="layer" value="snow:${k}"> ${L.title.replace("Snow cover change, ", "")}</label></li>`).join("");
   document.querySelectorAll("input[name=layer]").forEach((r) => r.addEventListener("change", (e) => { const [a, b] = e.target.value.split(":"); select(a, b); }));
   const fc = { type: "FeatureCollection", features: Object.entries(CITIES).map(([n, c]) => ({ type: "Feature", properties: { name: n }, geometry: { type: "Point", coordinates: [c.lon, c.lat] } })) };
@@ -121,6 +126,18 @@ map.on("load", async () => {
     $("play").textContent = "❚❚";
     timer = setInterval(() => { const s = $("month"); s.value = (+s.value + 1) % (+s.max + 1); show(); }, 700);
   };
+  const yr = ["interpolate", ["linear"], ["coalesce", ["get", "year"], 2018], 2017, "#d9c9a3", 2020, "#d08c3a", 2024, "#7a2e12"];
+  map.addSource("solar", { type: "geojson", data: "data/energy/solar_farms.geojson" });
+  map.addLayer({ id: "solar", type: "circle", source: "solar", layout: { visibility: "none" },
+    paint: { "circle-color": yr, "circle-stroke-color": "#1d2a33", "circle-stroke-width": 0.5,
+             "circle-radius": ["interpolate", ["linear"], ["sqrt", ["get", "area_ha"]], 0, 2, 10, 5, 60, 14] } }, FIRST_LABEL);
+  map.addSource("wind", { type: "geojson", data: "data/energy/wind_turbines.geojson" });
+  map.addLayer({ id: "wind", type: "circle", source: "wind", layout: { visibility: "none" },
+    paint: { "circle-color": "#2f5d73", "circle-radius": ["interpolate", ["linear"], ["zoom"], 3, 1, 9, 3.5], "circle-opacity": 0.8 } }, FIRST_LABEL);
+  $("showSolar").addEventListener("change", (e) => map.setLayoutProperty("solar", "visibility", e.target.checked ? "visible" : "none"));
+  $("showWind").addEventListener("change", (e) => map.setLayoutProperty("wind", "visibility", e.target.checked ? "visible" : "none"));
+  map.on("click", "solar", (e) => { const p = e.features[0].properties;
+    new maplibregl.Popup().setLngLat(e.lngLat).setHTML(`<b>Solar farm</b><br>${p.country}<br>${p.area_ha} ha, built ${p.year ?? "before 2018"}<br><small>Global Renewables Watch</small>`).addTo(map); });
   select("smog", "no2");
   chart("Lahore");
 });
