@@ -1,0 +1,63 @@
+{
+ "type": "Collection",
+ "stac_version": "1.0.0",
+ "id": "smog-o3",
+ "title": "Total ozone column",
+ "description": "Monthly Total ozone column, 0.1 degree grid, from Copernicus Sentinel-5P TROPOMI.",
+ "license": "CC-BY-4.0",
+ "extent": {
+  "spatial": {
+   "bbox": [
+    [
+     60.0,
+     5.0,
+     98.0,
+     37.0
+    ]
+   ]
+  },
+  "temporal": {
+   "interval": [
+    [
+     "2019-01-01T00:00:00Z",
+     "2026-11-28T00:00:00Z"
+    ]
+   ]
+  }
+ },
+ "providers": [
+  {
+   "name": "Copernicus Sentinel-5P TROPOMI",
+   "roles": [
+    "producer",
+    "licensor"
+   ]
+  },
+  {
+   "name": "Third Pole open data",
+   "roles": [
+    "processor",
+    "host"
+   ]
+  }
+ ],
+ "assets": {
+  "netcdf": {
+   "href": "../smog/o3/o3_monthly.nc",
+   "type": "application/x-netcdf",
+   "roles": [
+    "data"
+   ]
+  }
+ },
+ "links": [
+  {
+   "rel": "root",
+   "href": "../catalog.json"
+  },
+  {
+   "rel": "parent",
+   "href": "../catalog.json"
+  }
+ ]
+}

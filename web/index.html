@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Third Pole Atlas</title>
+<meta name="description" content="Open atlas of air quality over South Asia and snow over the Third Pole, from satellite data, updated regularly. View, explore and download under CC BY 4.0.">
+<meta property="og:title" content="Third Pole Atlas">
+<meta property="og:description" content="Open data on air and snow for the Third Pole and South Asia, across borders.">
+<meta property="og:image" content="brand/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"DataCatalog","name":"Third Pole Atlas","description":"Open data on air quality over South Asia and snow over the Third Pole.","license":"https://creativecommons.org/licenses/by/4.0/","url":"https://ahmadammar.github.io/third-pole/","spatialCoverage":{"@type":"Place","geo":{"@type":"GeoShape","box":"5 60 37 98"}},"creator":{"@type":"Person","name":"Ahmad Ammar"}}
+</script>
+</head>
+<body>
+<header class="masthead">
+  <a class="brand" href="./"><img src="brand/mark.svg" alt="" width="40" height="40"><span><b>Third Pole Atlas</b><i>air and snow, across borders</i></span></a>
+  <nav><a href="./" aria-current="page">Map</a><a href="data.html">Data</a><a href="method.html">Method</a><a href="design.html">Design</a><a href="about.html">About</a></nav>
+</header>
+<main class="atlas">
+  <aside class="panel" id="panel" aria-label="Layers">
+    <section>
+      <h2>Air over South Asia</h2>
+      <p class="note">Monthly means from Sentinel-5P and MODIS on a 0.1° grid, January 2019 to the present month.</p>
+      <ul id="air" class="layers"></ul>
+    </section>
+    <section>
+      <h2>Snow over the Third Pole</h2>
+      <p class="note">Change in snow-cover days, 2000–2025, MODIS MOD10A1F.</p>
+      <ul id="snow" class="layers"></ul>
+    </section>
+    <section>
+      <h2>Places</h2>
+      <label class="check"><input type="checkbox" id="showCities" checked> Cities with daily series</label>
+    </section>
+  </aside>
+  <div class="mapwrap">
+    <div id="map" role="region" aria-label="Map"></div>
+    <div class="timebar" id="timebar">
+      <button id="prev" aria-label="Previous month">‹</button>
+      <input type="range" id="month" min="0" max="0" value="0" aria-label="Month">
+      <button id="next" aria-label="Next month">›</button>
+      <output id="monthLabel"></output>
+      <button id="play" aria-label="Play">▶</button>
+    </div>
+    <div class="legend" id="legend"></div>
+  </div>
+  <aside class="info" id="info" aria-live="polite">
+    <h2 id="infoTitle">About this layer</h2>
+    <div id="infoBody"></div>
+    <div id="chart"></div>
+  </aside>
+</main>
+<footer class="foot">Data: Copernicus Sentinel-5P, NASA MODIS and FIRMS, OpenAQ, ECMWF ERA5. Basemap: OpenFreeMap, © OpenMapTiles, © OpenStreetMap contributors, Natural Earth. Atlas CC BY 4.0. <span id="built"></span></footer>
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

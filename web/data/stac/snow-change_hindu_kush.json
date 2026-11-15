@@ -1,0 +1,47 @@
+{
+ "type": "Collection",
+ "stac_version": "1.0.0",
+ "id": "snow-change_hindu_kush",
+ "title": "Snow cover change, Hindu Kush",
+ "description": "Change in snow cover days from MODIS MOD10A1F, from the uib-snow-cover study.",
+ "license": "CC-BY-4.0",
+ "extent": {
+  "spatial": {
+   "bbox": [
+    [
+     61.049506708762685,
+     31.00984360780588,
+     74.07507832849575,
+     38.492809924521495
+    ]
+   ]
+  },
+  "temporal": {
+   "interval": [
+    [
+     "2000-10-01T00:00:00Z",
+     "2025-09-30T00:00:00Z"
+    ]
+   ]
+  }
+ },
+ "assets": {
+  "geotiff": {
+   "href": "../snow/change_hindu_kush.tif",
+   "type": "image/tiff; application=geotiff",
+   "roles": [
+    "data"
+   ]
+  }
+ },
+ "links": [
+  {
+   "rel": "root",
+   "href": "../catalog.json"
+  },
+  {
+   "rel": "parent",
+   "href": "../catalog.json"
+  }
+ ]
+}

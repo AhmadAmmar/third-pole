@@ -1,0 +1,87 @@
+{
+ "type": "Catalog",
+ "stac_version": "1.0.0",
+ "id": "third-pole",
+ "title": "Third Pole open data",
+ "description": "Air quality over South Asia and snow over the Third Pole, from open satellite data. CC BY 4.0.",
+ "links": [
+  {
+   "rel": "root",
+   "href": "./catalog.json"
+  },
+  {
+   "rel": "self",
+   "href": "./catalog.json"
+  },
+  {
+   "rel": "child",
+   "href": "./stac/smog-no2.json",
+   "title": "Tropospheric NO₂ column"
+  },
+  {
+   "rel": "child",
+   "href": "./stac/smog-aod.json",
+   "title": "Aerosol optical depth, 550 nm"
+  },
+  {
+   "rel": "child",
+   "href": "./stac/smog-uvai.json",
+   "title": "UV absorbing aerosol index"
+  },
+  {
+   "rel": "child",
+   "href": "./stac/smog-so2.json",
+   "title": "SO₂ column"
+  },
+  {
+   "rel": "child",
+   "href": "./stac/smog-co.json",
+   "title": "Carbon monoxide column"
+  },
+  {
+   "rel": "child",
+   "href": "./stac/smog-hcho.json",
+   "title": "Tropospheric formaldehyde"
+  },
+  {
+   "rel": "child",
+   "href": "./stac/smog-o3.json",
+   "title": "Total ozone column"
+  },
+  {
+   "rel": "child",
+   "href": "./stac/smog-fire.json",
+   "title": "Active fire detections"
+  },
+  {
+   "rel": "child",
+   "href": "./stac/snow-change_himalaya.json",
+   "title": "Snow cover change, Himalaya"
+  },
+  {
+   "rel": "child",
+   "href": "./stac/snow-change_hindu_kush.json",
+   "title": "Snow cover change, Hindu Kush"
+  },
+  {
+   "rel": "child",
+   "href": "./stac/snow-change_karakoram.json",
+   "title": "Snow cover change, Karakoram"
+  },
+  {
+   "rel": "child",
+   "href": "./stac/snow-change_pamir_mountains.json",
+   "title": "Snow cover change, Pamir Mountains"
+  },
+  {
+   "rel": "child",
+   "href": "./stac/snow-change_tian_shan.json",
+   "title": "Snow cover change, Tian Shan"
+  },
+  {
+   "rel": "child",
+   "href": "./stac/snow-change_tibetan_plateau.json",
+   "title": "Snow cover change, Tibetan Plateau"
+  }
+ ]
+}

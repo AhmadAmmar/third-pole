@@ -1,0 +1,47 @@
+{
+ "type": "Collection",
+ "stac_version": "1.0.0",
+ "id": "snow-change_pamir_mountains",
+ "title": "Snow cover change, Pamir Mountains",
+ "description": "Change in snow cover days from MODIS MOD10A1F, from the uib-snow-cover study.",
+ "license": "CC-BY-4.0",
+ "extent": {
+  "spatial": {
+   "bbox": [
+    [
+     70.0236763971167,
+     36.66922989775887,
+     75.95255727230554,
+     39.84028285070078
+    ]
+   ]
+  },
+  "temporal": {
+   "interval": [
+    [
+     "2000-10-01T00:00:00Z",
+     "2025-09-30T00:00:00Z"
+    ]
+   ]
+  }
+ },
+ "assets": {
+  "geotiff": {
+   "href": "../snow/change_pamir_mountains.tif",
+   "type": "image/tiff; application=geotiff",
+   "roles": [
+    "data"
+   ]
+  }
+ },
+ "links": [
+  {
+   "rel": "root",
+   "href": "../catalog.json"
+  },
+  {
+   "rel": "parent",
+   "href": "../catalog.json"
+  }
+ ]
+}

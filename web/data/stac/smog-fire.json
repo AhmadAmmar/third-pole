@@ -1,0 +1,63 @@
+{
+ "type": "Collection",
+ "stac_version": "1.0.0",
+ "id": "smog-fire",
+ "title": "Active fire detections",
+ "description": "Monthly Active fire detections, 0.1 degree grid, from NASA FIRMS MODIS.",
+ "license": "CC-BY-4.0",
+ "extent": {
+  "spatial": {
+   "bbox": [
+    [
+     60.0,
+     5.0,
+     98.0,
+     37.0
+    ]
+   ]
+  },
+  "temporal": {
+   "interval": [
+    [
+     "2019-01-01T00:00:00Z",
+     "2026-11-28T00:00:00Z"
+    ]
+   ]
+  }
+ },
+ "providers": [
+  {
+   "name": "NASA FIRMS MODIS",
+   "roles": [
+    "producer",
+    "licensor"
+   ]
+  },
+  {
+   "name": "Third Pole open data",
+   "roles": [
+    "processor",
+    "host"
+   ]
+  }
+ ],
+ "assets": {
+  "netcdf": {
+   "href": "../smog/fire/fire_monthly.nc",
+   "type": "application/x-netcdf",
+   "roles": [
+    "data"
+   ]
+  }
+ },
+ "links": [
+  {
+   "rel": "root",
+   "href": "../catalog.json"
+  },
+  {
+   "rel": "parent",
+   "href": "../catalog.json"
+  }
+ ]
+}

@@ -1,0 +1,47 @@
+{
+ "type": "Collection",
+ "stac_version": "1.0.0",
+ "id": "snow-change_tibetan_plateau",
+ "title": "Snow cover change, Tibetan Plateau",
+ "description": "Change in snow cover days from MODIS MOD10A1F, from the uib-snow-cover study.",
+ "license": "CC-BY-4.0",
+ "extent": {
+  "spatial": {
+   "bbox": [
+    [
+     73.79660059041869,
+     23.814338182008516,
+     106.21679919429222,
+     40.055878518889465
+    ]
+   ]
+  },
+  "temporal": {
+   "interval": [
+    [
+     "2000-10-01T00:00:00Z",
+     "2025-09-30T00:00:00Z"
+    ]
+   ]
+  }
+ },
+ "assets": {
+  "geotiff": {
+   "href": "../snow/change_tibetan_plateau.tif",
+   "type": "image/tiff; application=geotiff",
+   "roles": [
+    "data"
+   ]
+  }
+ },
+ "links": [
+  {
+   "rel": "root",
+   "href": "../catalog.json"
+  },
+  {
+   "rel": "parent",
+   "href": "../catalog.json"
+  }
+ ]
+}

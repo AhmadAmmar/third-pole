@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design · Third Pole Atlas</title><meta name="description" content="Design principles, the computed mark, and the design journal with every version.">
+<meta property="og:title" content="Design · Third Pole Atlas"><meta property="og:image" content="brand/og-image.png">
+<link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link href="style.css" rel="stylesheet"></head><body>
+<header class="masthead"><a class="brand" href="./"><img src="brand/mark.svg" alt="" width="40" height="40"><span><b>Third Pole Atlas</b><i>air and snow, across borders</i></span></a><nav><a href="./">Map</a><a href="data.html">Data</a><a href="method.html">Method</a><a href="design.html" aria-current=page>Design</a><a href="about.html">About</a></nav></header>
+<article class="page"><h1>Design</h1><p class="lede">The reasoning behind the look, and every version as it was.</p>
+<h2>Principles</h2>
+<ul><li><b>Map first, ink second.</b> Paper ground, one dark ink, one red accent. Ornament only where it carries information: the graticule,
+the scale bar, the legend.</li>
+<li><b>Classical type.</b> EB Garamond (Garamond's 1592 specimen) for titles and reading; Source Sans 3 for numbers, labels and controls,
+where a sans reads faster at small sizes. Small capitals for field names, as in printed atlases.</li>
+<li><b>Honest colour.</b> Perceptually uniform, colour-blind safe ramps; fixed ranges across time; no-data is transparent.</li>
+<li><b>Borders drawn lightly.</b> Air and snow cross borders; the basemap's boundaries are kept faint and names appear in local scripts.</li>
+<li><b>Responsive and accessible.</b> One column on phones, map first; keyboard controls; text alternatives for charts; dark mode follows the
+reader's system.</li></ul>
+<h2>The mark</h2>
+<figure><img src="brand/mark-paper.png" alt="Third Pole mark" style="max-width:320px"><figcaption>The mark is computed, not drawn:
+the Third Pole domain in a Lambert azimuthal equal-area projection centred on 88° E, 33° N, with inward contours at equal steps, framed by
+parallels of a polar view, a red point at north. One colour, so it can be stencilled, printed or embroidered.
+Source: <code>build/build_brand.py</code>.</figcaption></figure>
+<p>Brand files: <a href="brand/logo.svg">logo (SVG)</a> · <a href="brand/mark.svg">mark</a> · <a href="brand/instagram-post.png">Instagram post</a>
+· <a href="brand/instagram-story.png">story</a> · <a href="brand/facebook-cover.png">Facebook cover</a> · <a href="brand/og-image.png">link preview</a>.</p>
+<h2>Journal</h2><h3>v1, 2026-11-15</h3>
+<p>First version. Three-column atlas layout (layers, map, information), paper palette, Garamond titles. The first basemap
+(CARTO raster) refused requests without a key, so the atlas moved to OpenFreeMap vector tiles (free, open, no key) with Natural
+Earth shaded relief beneath. The partial current month looked patchy as the default view, so the map opens on the last complete
+month. Low concentrations now fade so the land shows through.</p>
+<h3>v1</h3><figure><img src="journal/v1/desktop-dark.png" alt="v1 desktop-dark" loading="lazy"><figcaption>v1, desktop dark</figcaption></figure><figure><img src="journal/v1/desktop.png" alt="v1 desktop" loading="lazy"><figcaption>v1, desktop</figcaption></figure><figure><img src="journal/v1/phone.png" alt="v1 phone" loading="lazy"><figcaption>v1, phone</figcaption></figure></article></body></html>

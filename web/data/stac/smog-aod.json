@@ -1,0 +1,63 @@
+{
+ "type": "Collection",
+ "stac_version": "1.0.0",
+ "id": "smog-aod",
+ "title": "Aerosol optical depth, 550 nm",
+ "description": "Monthly Aerosol optical depth, 550 nm, 0.1 degree grid, from NASA MODIS MAIAC MCD19A2 v6.1.",
+ "license": "CC-BY-4.0",
+ "extent": {
+  "spatial": {
+   "bbox": [
+    [
+     60.0,
+     5.0,
+     98.0,
+     37.0
+    ]
+   ]
+  },
+  "temporal": {
+   "interval": [
+    [
+     "2019-01-01T00:00:00Z",
+     "2026-11-28T00:00:00Z"
+    ]
+   ]
+  }
+ },
+ "providers": [
+  {
+   "name": "NASA MODIS MAIAC MCD19A2 v6.1",
+   "roles": [
+    "producer",
+    "licensor"
+   ]
+  },
+  {
+   "name": "Third Pole open data",
+   "roles": [
+    "processor",
+    "host"
+   ]
+  }
+ ],
+ "assets": {
+  "netcdf": {
+   "href": "../smog/aod/aod_monthly.nc",
+   "type": "application/x-netcdf",
+   "roles": [
+    "data"
+   ]
+  }
+ },
+ "links": [
+  {
+   "rel": "root",
+   "href": "../catalog.json"
+  },
+  {
+   "rel": "parent",
+   "href": "../catalog.json"
+  }
+ ]
+}

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Method · Third Pole Atlas</title><meta name="description" content="How the atlas layers are made, and their limits.">
+<meta property="og:title" content="Method · Third Pole Atlas"><meta property="og:image" content="brand/og-image.png">
+<link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link href="style.css" rel="stylesheet"></head><body>
+<header class="masthead"><a class="brand" href="./"><img src="brand/mark.svg" alt="" width="40" height="40"><span><b>Third Pole Atlas</b><i>air and snow, across borders</i></span></a><nav><a href="./">Map</a><a href="data.html">Data</a><a href="method.html" aria-current=page>Method</a><a href="design.html">Design</a><a href="about.html">About</a></nav></header>
+<article class="page"><h1>Method</h1><p class="lede">How each layer is made, what it shows and what it cannot show.</p>
+<h2>Air</h2>
+<p><b>Retrievals.</b> Sentinel-5P TROPOMI offline Level-3 products (NO₂, SO₂, CO, HCHO, O₃, UV aerosol index) as ingested by Google Earth
+Engine, with its quality screening; MODIS MAIAC aerosol optical depth at 550 nm (MCD19A2 v6.1, 1 km); FIRMS MODIS active fires
+(confidence ≥ 50). Region 60–98° E, 5–37° N.</p>
+<p><b>Aggregation.</b> Each day is averaged first and the month is the mean of daily means, so days with two overpasses do not count twice. The
+number of valid days per cell is kept in the source grids. Cells are 0.1° (about 11 km), close to TROPOMI's 5.5 × 3.5 km pixels.
+The latest month is partial until it ends; it is redrawn at each update.</p>
+<p><b>Columns are not breathing air.</b> A column counts all molecules between ground and space. Winter NO₂ columns rise partly because
+the shallow winter boundary layer traps emissions, and haze can hide the surface from the sensor. For surface PM2.5 the atlas uses ground
+monitors (OpenAQ) and a calibrated model; a daily 1 km surface PM2.5 and population exposure layer is in preparation.</p>
+<p><b>Colour.</b> Fixed ranges per layer so months can be compared; perceptually uniform, colour-blind safe maps (cividis, magma, ColorBrewer);
+low values fade so the land stays readable; cells with no valid retrieval are transparent, not zero.</p>
+<h2>Snow</h2>
+<p>MODIS MOD10A1F cloud-gap-filled daily snow cover, hydrological years 2001–2025; Sen slopes of snow-cover days with Mann–Kendall
+tests and false discovery rate control, by range and elevation band. Change classes per pixel. Full method in the
+<a href="https://github.com/AhmadAmmar/uib-snow-cover">uib-snow-cover</a> repository.</p>
+<h2>Updates</h2>
+<p>The source repositories run incremental downloads to the present day (only new and the last two months are fetched again), then
+<code>build/build_data.py</code> redraws the newest maps, rewrites the NetCDF and STAC files, and the site is redeployed. Every step is logged.</p>
+<h2>Code</h2><p>All code is open: <a href="https://github.com/AhmadAmmar/third-pole">third-pole</a> (this atlas),
+<a href="https://github.com/AhmadAmmar/south-asia-smog">south-asia-smog</a>, <a href="https://github.com/AhmadAmmar/uib-snow-cover">uib-snow-cover</a>.</p></article></body></html>

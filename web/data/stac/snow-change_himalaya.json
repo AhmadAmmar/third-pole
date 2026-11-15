@@ -1,0 +1,47 @@
+{
+ "type": "Collection",
+ "stac_version": "1.0.0",
+ "id": "snow-change_himalaya",
+ "title": "Snow cover change, Himalaya",
+ "description": "Change in snow cover days from MODIS MOD10A1F, from the uib-snow-cover study.",
+ "license": "CC-BY-4.0",
+ "extent": {
+  "spatial": {
+   "bbox": [
+    [
+     70.54469926190603,
+     26.653014479826204,
+     97.05398329627312,
+     36.27397117274628
+    ]
+   ]
+  },
+  "temporal": {
+   "interval": [
+    [
+     "2000-10-01T00:00:00Z",
+     "2025-09-30T00:00:00Z"
+    ]
+   ]
+  }
+ },
+ "assets": {
+  "geotiff": {
+   "href": "../snow/change_himalaya.tif",
+   "type": "image/tiff; application=geotiff",
+   "roles": [
+    "data"
+   ]
+  }
+ },
+ "links": [
+  {
+   "rel": "root",
+   "href": "../catalog.json"
+  },
+  {
+   "rel": "parent",
+   "href": "../catalog.json"
+  }
+ ]
+}
