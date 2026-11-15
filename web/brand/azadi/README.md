@@ -18,6 +18,9 @@ Noto Nastaliq Urdu. All free fonts (Google Fonts, SIL OFL).
 | azadi-world*, azadi-rivers*, azadi-star* | marks and lockups (SVG and PNG; light, paper, reverse, one colour) | 512 / 1700 x 512 |
 | favicon.svg | site icon | 64 |
 
+## Versions
+v1 in `social/` (contours only); v2 in `social-v2/` (rivers added, dark contours): `python build/build_azadi_social.py --version v2 [posts.json]`.
+
 ## New posts from text
 Write `posts.json`: `[{"slug": "aac-committees", "kicker": "Kashmir", "headline": "...", "deck": "...", "source": "...", "theme": "ink"}]`
 then `python build/build_azadi_social.py posts.json`; each post renders to `social/post-<slug>.png`.

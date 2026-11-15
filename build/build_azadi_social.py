@@ -26,7 +26,9 @@ from shapely.ops import unary_union
 sys.path.insert(0, str(Path(__file__).parent))
 from build_azadi_brand import DEV, INK, NE, PAPER, RED, d_line, d_poly, render_png, star_points, svg  # noqa: E402
 
-OUT = Path(__file__).resolve().parents[1] / "web/brand/azadi/social"
+VERSION = sys.argv[sys.argv.index("--version") + 1] if "--version" in sys.argv else "v1"
+OUT = Path(__file__).resolve().parents[1] / "web/brand/azadi" / ("social" if VERSION == "v1" else f"social-{VERSION}")
+RIVERS_ON = VERSION != "v1"      # v2: the rivers that leave the Third Pole, drawn into every mark
 OUT.mkdir(parents=True, exist_ok=True)
 LAEA = "+proj=laea +lon_0=80 +lat_0=24 +datum=WGS84 +units=m"
 RADIUS = 2_700_000
@@ -38,10 +40,15 @@ def _geoms():
     land = unary_union(list(land.geometry)).intersection(disc).simplify(4000)
     dom = gpd.read_file(DEV / "shared-geodata/data/third_pole/domain_variants/third_pole_domain_balanced_contiguous.geojson").to_crs(LAEA)
     dom = dom.union_all().simplify(15000)
-    return land, dom
+    riv = gpd.read_file(NE / "ne_50m_rivers_lake_centerlines.geojson")
+    keep = ("Indus", "Ganges", "Brahmaputra", "Yarlung", "Dihang", "Sutlej", "Chenab", "Yamuna", "Ayeyarwady", "Salween", "Nu",
+            "Mekong", "Lancang", "Amu  Darya", "Panj", "Helmand", "Narmada", "Krishna", "Tarim", "Yarkant", "Chang Jiang", "Jinsha", "Tongtian")
+    riv = riv[riv.name.isin(keep) | riv.name.fillna("").str.startswith(("God", "Mah"))].to_crs(LAEA)
+    rivers = unary_union(list(riv.geometry)).intersection(land).simplify(3000)
+    return land, dom, rivers
 
 
-LAND, DOM = _geoms()
+LAND, DOM, RIVERS = _geoms()
 
 
 def mark_southasia(S=512, land_col=RED, sea=PAPER, ink=INK, contours=PAPER, ring=True, rings=4):
@@ -55,7 +62,10 @@ def mark_southasia(S=512, land_col=RED, sea=PAPER, ink=INK, contours=PAPER, ring
         if g.is_empty:
             break
         w = S * (0.010 if i == 0 else 0.0065)
-        b.append(f'<path d="{d_poly(g, tx)}" fill="none" stroke="{contours}" stroke-width="{w:.1f}" stroke-linejoin="round" opacity="{1 if i == 0 else 0.85}"/>')
+        col = (ink if contours == PAPER else contours) if RIVERS_ON else contours   # v2: mountains dark, rivers light
+        b.append(f'<path d="{d_poly(g, tx)}" fill="none" stroke="{col}" stroke-width="{w:.1f}" stroke-linejoin="round" opacity="{(0.9 if i == 0 else 0.6) if RIVERS_ON else (1 if i == 0 else 0.85)}"/>')
+    if RIVERS_ON:   # rivers in paper over the red land: water leaving the mountains, across every border
+        b.append(f'<path d="{d_line(RIVERS, tx)}" fill="none" stroke="{sea}" stroke-width="{S*0.0075:.1f}" stroke-linecap="round" stroke-linejoin="round"/>')
     c = DOM.representative_point()
     cx, cy = tx(c.x, c.y)
     st = star_points(cx, cy, S * 0.06)
@@ -94,13 +104,15 @@ def facebook_cover(w=1640, h=624):
     """Facebook shows 820x312 on desktop and crops the sides to about 640x360 on phones: content sits in the centre
     safe area; the map runs off the right edge as a field, not as content."""
     k = (h * 1.7) / (2 * RADIUS)
-    tx = lambda x, y: (w * 1.02 + x * k, h * 0.55 - y * k)
+    tx = lambda x, y: (w * 1.08 + x * k, h * 0.62 - y * k)
     span = math.sqrt(DOM.area)
     field = [f'<path d="{d_poly(LAND, tx)}" fill="{RED}" opacity="0.85"/>']
     for i in range(6):
         g = DOM.buffer(-i * span * 0.07).simplify(8000)
         if not g.is_empty:
             field.append(f'<path d="{d_poly(g, tx)}" fill="none" stroke="{PAPER}" stroke-width="{2.6 if i == 0 else 1.6}" stroke-linejoin="round"/>')
+    if RIVERS_ON:
+        field.append(f'<path d="{d_line(RIVERS, tx)}" fill="none" stroke="{PAPER}" stroke-width="2.2" stroke-linecap="round" opacity="0.9"/>')
     graticule = "".join(f'<line x1="{x}" y1="0" x2="{x}" y2="{h}" stroke="{PAPER}" stroke-width="0.6" opacity="0.12"/>' for x in range(0, w, 82))
     m = 230
     body = (graticule + "".join(field) +
@@ -178,8 +190,9 @@ if __name__ == "__main__":
         put(f"post-template-{e['theme']}", post_card(e["kicker"], e["headline"], e["deck"], e["source"], theme=e["theme"]), 1080, 1350)
     for g in ("essays", "kashmir", "labour", "climate", "energy", "air", "solidarity", "maps"):
         put(f"highlight-{g}", glyph(g), 1080, 1080)
-    if len(sys.argv) > 1:      # posts.json: [{"slug": "...", "kicker": "...", "headline": "...", "deck": "...", "source": "...", "theme": "ink"}]
-        posts = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+    args = [a for a in sys.argv[1:] if not a.startswith('--') and a != VERSION]
+    if args:      # posts.json: [{"slug": "...", "kicker": "...", "headline": "...", "deck": "...", "source": "...", "theme": "ink"}]
+        posts = json.loads(Path(args[0]).read_text(encoding="utf-8"))
         for p in posts:
             put(f"post-{p['slug']}", post_card(p["kicker"], p["headline"], p.get("deck", ""), p.get("source", ""), theme=p.get("theme", "ink")), 1080, 1350)
     for f, w, h in files:
