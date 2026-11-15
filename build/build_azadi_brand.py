@@ -143,7 +143,7 @@ def lockup(mark_body, ink=INK, bg=None, red=RED):
     return svg((W, H), f'<g>{mark_body}</g>'
                f'<text x="570" y="300" font-family="Cormorant Garamond, EB Garamond, Georgia, serif" font-weight="600" font-size="230" letter-spacing="28" fill="{ink}">AZADI</text>'
                f'<text x="1665" y="285" text-anchor="end" font-family="Noto Nastaliq Urdu, serif" font-size="104" fill="{red}">آزادی</text>'
-               f'<text x="578" y="395" font-family="Source Sans 3, Inter, Arial, sans-serif" font-size="40" letter-spacing="10" fill="{ink}" opacity="0.8">ASIA · THE THIRD POLE · THE WORLD</text>',
+               f'<text x="578" y="395" font-family="&apos;Source Sans 3&apos;, Inter, Arial, sans-serif" font-size="40" letter-spacing="10" fill="{ink}" opacity="0.8">ASIA · THE THIRD POLE · THE WORLD</text>',
                bg, "azadi.asia")
 
 
@@ -157,9 +157,9 @@ def social(mark_body, w, h, title, kicker):
     lines = "".join(f'<text x="{tx:.0f}" y="{ty + u*0.10*(i+1):.0f}" font-family="Cormorant Garamond, Georgia, serif" font-weight="600" '
                     f'font-size="{u*0.085:.0f}" fill="{PAPER}">{t}</text>' for i, t in enumerate(title.split("|")))
     return svg((w, h), f'<g transform="translate({mx:.0f},{my:.0f}) scale({m/512:.3f})">{mark_body}</g>'
-               f'<text x="{tx:.0f}" y="{ty:.0f}" font-family="Source Sans 3, Arial, sans-serif" font-size="{u*0.034:.0f}" letter-spacing="5" fill="{RED}">{kicker.upper()}</text>'
+               f'<text x="{tx:.0f}" y="{ty:.0f}" font-family="&apos;Source Sans 3&apos;, Arial, sans-serif" font-size="{u*0.034:.0f}" letter-spacing="5" fill="{RED}">{kicker.upper()}</text>'
                + lines +
-               f'<text x="{tx:.0f}" y="{h-h*0.05:.0f}" font-family="Source Sans 3, Arial, sans-serif" font-size="{u*0.034:.0f}" letter-spacing="4" fill="{PAPER}" opacity="0.8">AZADI.ASIA</text>', INK)
+               f'<text x="{tx:.0f}" y="{h-h*0.05:.0f}" font-family="&apos;Source Sans 3&apos;, Arial, sans-serif" font-size="{u*0.034:.0f}" letter-spacing="4" fill="{PAPER}" opacity="0.8">AZADI.ASIA</text>', INK)
 
 
 def render_png(svg_file, png_file, w, h):
